@@ -215,45 +215,60 @@ function AvailableCars() {
 }
 
 const CarCard = ({ car }) => {
-
-    const navigate  = useNavigate()
+    const navigate = useNavigate();
 
     if (!car) return null;
-    
+
+    const handleCardClick = (e) => {
+        // Предотвращаем переход по ссылке, если клик был по кнопке
+        if (e.target.closest('.btn-style-1')) {
+            e.preventDefault();
+            return;
+        }
+        navigate(`/availablecars/${car.carid}`, { state: { car } });
+    };
+
     return (
-        <div className="car-card">
+        <div className="car-card" onClick={handleCardClick}>
             <div className='car-card-left'>
-            <Link to={`/availablecars/${car.carid}`} className="car-link">
-                {car.image && (
-                    <div className="car-image-container">
-                        <img 
-                            src={car.image.startsWith('/assets/') 
-                                ? process.env.PUBLIC_URL + car.image 
-                                : !car.image.startsWith('/') 
-                                    ? process.env.PUBLIC_URL + '/assets/' + car.image 
-                                    : process.env.PUBLIC_URL + car.image} 
-                            alt={`${car.model_name} ${car.trim_level} ${car.year}`}
-                            onError={(e) => e.target.style.display = 'none'}
-                        />
-                    </div>
-                )}
-                <div className="car-details">
-                    <div className="car-model">{car.model_name} {car.trim_level} {car.year}</div>
-                    <div className="car-available"><FaCircle /> Доступен к заказу</div>
-                    <div className="car-color">{car.color}</div>
-                    <div className="car-specs">
-                        <span>{car.engine} л</span>
-                        <span>{car.bodywork}</span>
-                        <span>{car.fuel}</span>
+                <div className="car-link">
+                    {car.image && (
+                        <div className="car-image-container">
+                            <img 
+                                src={car.image.startsWith('/assets/') 
+                                    ? process.env.PUBLIC_URL + car.image 
+                                    : !car.image.startsWith('/') 
+                                        ? process.env.PUBLIC_URL + '/assets/' + car.image 
+                                        : process.env.PUBLIC_URL + car.image} 
+                                alt={`${car.model_name} ${car.trimlevel} ${car.year}`}
+                                onError={(e) => e.target.style.display = 'none'}
+                            />
+                        </div>
+                    )}
+                    <div className="car-details">
+                        <div className="car-model">{car.model_name} {car.trimlevel} {car.year}</div>
+                        <div className="car-available"><FaCircle /> Доступен к заказу</div>
+                        <div className="car-color">{car.color}</div>
+                        <div className="car-specs">
+                            <span>{car.engine} л</span>
+                            <span>{car.bodywork}</span>
+                            <span>{car.fuel}</span>
+                        </div>
                     </div>
                 </div>
-            </Link>
-        </div>
-        <div className="car-card-right">
-                <div className="car-price">{car.price.toLocaleString('ru-RU')} ₽</div>
+            </div>
+            <div className="car-card-right">
+                <div className="car-price">
+                    {new Intl.NumberFormat('ru-RU', {
+                        style: 'decimal',
+                    }).format(car.price)} ₽
+                </div>
                 <ButtonCustom 
                     className='btn-style-1' 
-                    onClick={() => navigate(`/availablecars/${car.carid}`)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/availablecars/${car.carid}`, { state: { car } });
+                    }}
                 >
                     ПОЛУЧИТЬ ПРЕДЛОЖЕНИЕ
                 </ButtonCustom>

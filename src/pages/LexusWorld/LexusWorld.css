@@ -1,0 +1,118 @@
+.lexus-world {
+    font-family: 'Jost', sans-serif;
+    
+    margin: 0 auto;
+    color: var(--primary-color-text);
+  }
+  
+  /* Стили для верхнего блока */
+  .lexus-intro {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 30px 150px;
+    background-image: url(../../../public/assets/img/bg-main-text.png);
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .intro-text {
+    flex: 1;
+  }
+  
+  .intro-text h1 {
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: white;
+    
+  }
+  
+  .intro-text h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    font-weight: 300;
+    color: white;
+    
+  }
+  
+  .intro-text p {
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  
+  .intro-image {
+    flex: 1;
+  }
+  
+  .intro-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  /* Стили для трехколоночного блока */
+  .features-grid {
+    padding: 30px 150px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  
+  .feature-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background-color: var(--secondary-color-background);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .feature-column:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  
+  .feature-number {
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--primary-secondary-color);
+  }
+  
+  .feature-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0;
+    text-transform: uppercase;
+    color: var(--primary-secondary-color);
+  }
+  
+  .feature-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 300;
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .lexus-intro {
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .intro-text h1 {
+      font-size: 2.2rem;
+    }
+    
+    .intro-text h2 {
+      font-size: 1.5rem;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
