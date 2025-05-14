@@ -20,19 +20,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders',
+    'corsheaders',  # Удален дубликат
     'cars',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # Должен быть как можно выше
+    'corsheaders.middleware.CorsMiddleware',  # Оставлен только один экземпляр
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Удален дубликат CorsMiddleware и CommonMiddleware
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -105,3 +106,6 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+# В разработке можно оставить True, но для продакшена лучше использовать CORS_ALLOWED_ORIGINS
+CORS_ALLOW_ALL_ORIGINS = True

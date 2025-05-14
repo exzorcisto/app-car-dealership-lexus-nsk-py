@@ -9,5 +9,4 @@ class CarListCreateView(generics.ListCreateAPIView):
 class CarRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
-    lookup_field = 'id'
-    # Удаляем метод destroy, так как он дублирует стандартное поведение
+    lookup_field = 'carid'

@@ -8,15 +8,13 @@ import Contacts from "./pages/Contacts/Contacts";
 import CarDetails from "./pages/CarDetails/CarDetails";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import AdminLayout from './admin/AdminLayout/AdminLayout';
-import ProtectedRoute from './admin/components/ProtectedRoute';
-import Login from './admin/auth/Login/Login';
-import Dashboard from './admin/Dashboard/Dashboard';
-import CarList from './admin/cars/CarList/CarList';
-import AddCar from './admin/cars/AddCar/AddCar';
-import EmployeeList from './admin/employees/EmployeeList/EmployeeList';
 import ServiceAppointmentForm from './pages/ServiceAppointmentForm/ServiceAppointmentForm';
+import CallBackForm from './pages/CallBackForm/CallBackForm';
 import './index.css';
+
+import AdminCarsList from './pages/admin/AdminCarsList';
+import AddCar from './pages/admin/AddCar/AddCar';
+import EditCar from './pages/admin/EditCar';
 
 function App() {
   const [cars, setCars] = useState([]);
@@ -45,24 +43,21 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Layout />}>
-          <Route index element={<Homepage />} />
-          <Route path="modelrange" element={<ModelRange />} />
-          <Route path="availablecars" element={<AvailableCars cars={cars} />} />
-          <Route path="availablecars/:id" element={<CarDetails cars={cars} />} />
-          <Route path="lexusworld" element={<LexusWorld />} />
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="serviceAppointmentForm" element={<ServiceAppointmentForm />} />
+            <Route index element={<Homepage />} />
+            <Route path="modelrange" element={<ModelRange />} />
+            <Route path="availablecars" element={<AvailableCars cars={cars} />} />
+            <Route path="availablecars/:id" element={<CarDetails cars={cars} />} />
+            <Route path="lexusworld" element={<LexusWorld />} />
+            <Route path="contacts" element={<Contacts />} />
+            <Route path="serviceAppointmentForm" element={<ServiceAppointmentForm />} />
+            <Route path="callBackForm" element={<CallBackForm />} />
         </Route>
 
         {/* Admin Routes */}
-        <Route path="/admin/login" element={<Login />} />
-        <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="cars" element={<CarList />} />
-          <Route path="cars/add" element={<AddCar />} />
-          <Route path="employees" element={<EmployeeList />} />
-        </Route>
-      </Routes>
+        <Route path="/admin" element={<AdminCarsList />} />
+        <Route path="/admin/add" element={<AddCar />} />
+        <Route path="/admin/edit/:id" element={<EditCar />} />
+    </Routes>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import ButtonCustom from '../../components/UI/ButtonCustom/ButtonCustom';
+import NavBar from '../../components/UI/NavBar/NavBar';
 import './CarDetails.css';
 import axios from 'axios';
 
@@ -66,6 +67,8 @@ const CarDetails = () => {
     }
 
     return (
+        <main>
+        <NavBar>{car.model_name}</NavBar>
         <div className="car-details-container">
             <div className="car-header-section">
                 <div className="header-content">
@@ -154,6 +157,7 @@ const CarDetails = () => {
                 </div>
             </div>
         </div>
+        </main>
     );
 };
 

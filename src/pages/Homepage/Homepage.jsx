@@ -10,8 +10,11 @@ export default function Homepage() {
             <div className="container-greetings">
                 <div className='text-greetings'>
                     <span>Стремлениек к <br/> совершенству <br/> вместе с LEXUS</span>
-                    <ButtonCustom onClick={() => console.log('clicking')}>ЗАКАЗАТЬ ОБРАТНЫЙ
-                        ЗВОНОК <CgArrowLongRight className='CgArrowLongRight'/></ButtonCustom>
+                    <ButtonCustom 
+                            onClick={() => window.location.href = `/callBackForm`}
+                        >
+                            ЗАКАЗАТЬ ОБРАТНЫЙ ЗВОНОК <CgArrowLongRight className='CgArrowLongRight'/>
+                    </ButtonCustom>
                 </div>
             </div>
             <div className='container-greetings-2'>

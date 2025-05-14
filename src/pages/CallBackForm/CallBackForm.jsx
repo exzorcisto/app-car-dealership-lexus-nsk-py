@@ -3,16 +3,15 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import NavBar from '../../components/UI/NavBar/NavBar';
 import * as yup from 'yup';
-import './ServiceAppointmentForm.css';
+import './CallBackForm.css';
 
 const schema = yup.object().shape({
   name: yup.string().required('Обязательное поле'),
   phone: yup.string().required('Обязательное поле').matches(/^\+?[0-9\s-]+$/, 'Некорректный номер'),
-  vin: yup.string(),
   consent: yup.boolean().oneOf([true], 'Необходимо дать согласие'),
 });
 
-const ServiceAppointmentForm = () => {
+const CallBackForm = () => {
   const { 
     register, 
     handleSubmit, 
@@ -28,9 +27,9 @@ const ServiceAppointmentForm = () => {
 
   return (
     <main>
-    <NavBar>Запись на техническое обслуживание</NavBar>
+    <NavBar>Запись на обратный звонок</NavBar>
     <div className="service-appointment-form">
-      <h1>ЗАПИСЬ НА ТЕХНИЧЕСКОЕ ОБСЛУЖИВАНИЕ</h1>
+      <h1>ЗАПИСЬ НА ОБРАТНЫЙ ЗВОНОК</h1>
       <p className="form-description">
         Воспользуйтесь онлайн-формой для записи на техническое обслуживание, и специалист дилерского центра свяжется с вами в ближайшее время.
       </p>
@@ -58,15 +57,6 @@ const ServiceAppointmentForm = () => {
             />
             {errors.phone && <span className="error-message">{errors.phone.message}</span>}
           </div>
-        </div>
-        
-        <div className="form-field-long">
-          <input
-            id="vin"
-            type="text"
-            placeholder="VIN"
-            {...register("vin")}
-          />
         </div>
         
         <div className="form-notice">
@@ -102,4 +92,4 @@ const ServiceAppointmentForm = () => {
   );
 };
 
-export default ServiceAppointmentForm;
+export default CallBackForm;

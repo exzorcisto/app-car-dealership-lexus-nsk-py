@@ -1,4 +1,3 @@
-// frontend/src/pages/AddCar/AddCar.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +6,7 @@ import './AddCar.css';
 function AddCar() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        model_name: '', // New field
+        model_name: '',
         trim_level: '',
         year: '',
         vin: '',
@@ -36,21 +35,17 @@ function AddCar() {
         e.preventDefault();
         setIsSubmitting(true);
         setError('');
-    
-        // Валидация перед отправкой
+
         if (!formData.model_name || !formData.trim_level || !formData.vin || !formData.price) {
             setError('Заполните все обязательные поля');
             setIsSubmitting(false);
             return;
         }
-    
+
         try {
-            // Подготовка данных изображения
-            let imagePath = formData.image;
-    
-            const response = await axios.post('http://localhost:8000/cars', {
-                model_name: formData.model_name, // New field
-                trim_level: formData.trim_level,
+            const response = await axios.post('http://localhost:8000/cars/', {
+                model_name: formData.model_name,
+                trimlevel: formData.trim_level,
                 year: parseInt(formData.year) || 2023,
                 vin: formData.vin,
                 price: parseFloat(formData.price) || 0,
@@ -59,27 +54,18 @@ function AddCar() {
                 engine: parseFloat(formData.engine) || 2.0,
                 engine_capacity: formData.engine_capacity || '150 л.с.',
                 fuel: formData.fuel || 'Бензин',
-                image: imagePath || '',
+                image: formData.image || '',
                 description_1: formData.description_1,
                 description_2: formData.description_2
-            }, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
             });
-    
+
             if (response.status === 201) {
                 alert('Автомобиль успешно добавлен!');
-                navigate('/cars');
+                navigate('/admin');
             }
         } catch (err) {
-            const serverError = err.response?.data?.message || err.message;
-            setError(`Ошибка: ${serverError}`);
-            console.error('Детали ошибки:', {
-                error: err,
-                request: err.config,
-                response: err.response
-            });
+            setError(`Ошибка: ${err.response?.data?.message || err.message}`);
+            console.error(err);
         } finally {
             setIsSubmitting(false);
         }
@@ -91,7 +77,7 @@ function AddCar() {
             {error && <div className="error-message">{error}</div>}
             
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
+            <div className="form-group">
                     <label>Модель автомобиля:</label>
                     <select
                         name="model_name"
@@ -299,7 +285,7 @@ function AddCar() {
                     <button 
                         type="button" 
                         className="cancel-btn"
-                        onClick={() => navigate('/cars')}
+                        onClick={() => navigate('/admin')}
                     >
                         Отмена
                     </button>
